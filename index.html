@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bài Tập Luyện Mảng</title>
+    <script>
+      function isPrime(num) {
+        for (let i = 2, s = Math.sqrt(num); i <= s; i++) {
+          if (num % i === 0) return false;
+          return num > 1;
+        }
+      }
+
+      function swapArrayElements(arr, index1, index2){
+        if(index1 < 0 || index1 >= arr.length || index2 < 0 || index2 >= arr.length)
+        return -1;
+      let temp = arr[index1];
+      arr[index1] = arr[index2];
+      arr[index2] = temp;
+      return arr;
+      }
+
+      function processArray() {
+        let inputArray = document
+          .getElementById("inputArray")
+          .value.split(",")
+          .map(Number);
+
+        // 1. Tổng số dương trong mảng
+        let sumPositive = inputArray.filter((n) => n > 0).reduce((sum,n) => sum+n,0)
+
+        // 2. Đếm số dương trong mảng
+        let countPositive = inputArray.filter((n) => n > 0).length;
+
+        // 3. Tìm số nhỏ nhất trong mảng
+        let minNumber = Math.min(...inputArray);
+
+        // 4. Tìm số dương nhỏ nhất trong mảng
+        let minPositiveNumber = Math.min(...inputArray.filter((n) => n > 0));
+
+        // 5. Tìm số chẵn cuối cùng trong mảng
+        let lastEvenNumber = inputArray
+          .slice()
+          .reverse()
+          .find((n) => n % 2 === 0);
+
+        // 6. Đổi chỗ 2 giá trị trong mảng theo vị trí
+        let swappedArray = swapArrayElements(
+          [...inputArray],
+          0,
+          inputArray.length - 1
+        );
+
+        // 7. Sắp xếp mảng theo thứ tự tăng dần
+        let sortedArray = [...inputArray].sort((a,b) => a-b);
+
+        // 8. Tìm số nguyên tố đầu tiên trong mảng
+        let firstPrimeNumber = inputArray.find(isPrime);
+
+        // 9. Nhập thêm 1 mảng số thực, xem trong mảng có bao nhiêu số nguyên?
+        let integerCount = inputArray.filter((n) => Number.isInteger(n)).length;
+
+        // 10. So sánh số lượng số dương và số âm
+        let negativeCount = inputArray.length - countPositive;
+        let compareCount = `Số lượng số dương là ${countPositive}, số âm là ${negativeCount}.`;
+          
+        // Cập nhật UI
+        document.getElementById("sumPositive").innerText = sumPositive;
+        document.getElementById("countPositive").innerText = countPositive;
+        document.getElementById("minNumber").innerText = minNumber;
+        document.getElementById("minPositiveNumber").innerText = minPositiveNumber;
+        document.getElementById("lastEvenNumber").innerText = lastEvenNumber;
+        document.getElementById("swappedArray").innerText = swappedArray;
+        document.getElementById("sortedArray").innerText = sortedArray.join(", ");
+        document.getElementById("firstPrimeNumber").innerText = firstPrimeNumber;
+        document.getElementById("integerCount").innerText = integerCount;
+        document.getElementById("compareCount").innerText = compareCount;
+      }
+    </script>
+  </head>
+  <body>
+    <h2>Bài Tập Luyện Mảng</h2>
+    <div>
+        Nhập mảng số nguyên (các số cách nhau bằng dấu phẩy): <br />
+        <input type="text" id="inputArray" placeholder="Ví dụ: 1,2,3,-4,5">
+        <button onclick="processArray()">Xử lý Mảng</button>
+    </div>
+    <div>
+        <p>Tổng số dương: <span id="sumPositive"><span></p>
+        <p>Số lượng số dương: <span id="countPositive"><span></p>
+        <p>Số nhỏ nhất trong mảng: <span id="minNumber"></span></p>
+        <p>Số dương nhỏ nhất: <span id="minPositiveNumber"></p>
+        <p>Số chẵn cuối cùng: <span id="lastEvenNumber"></span></p>
+        <p>Mảng sau khi đổi chỗ: <span id="swappedArray"></span></p>
+        <p>Mảng sau khi sắp xếp: <span id="sortedArray"></span></p>
+        <p>Số nguyên tố đầu tiên: <span id="firstPrimeNumber"></span></p>
+        <p>Số lượng số nguyên: <span id="integerCount"></span></p>
+        <p>So sánh số dương và số âm: <span id="compareCount"></span></p>
+    </div>
+  </body>
+</html>
